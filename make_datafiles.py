@@ -157,7 +157,7 @@ def write_to_bin(url_file, out_file, makevocab=False):
   if makevocab:
     vocab_counter = collections.Counter()
 
-  with open(out_file, 'w', encoding="utf-8") as writer:
+  with open(out_file, 'w') as writer:
     for idx,s in enumerate(story_fnames):
       if idx % 1000 == 0:
         print "Writing story %i of %i; %.2f percent done" % (idx, num_stories, float(idx)*100.0/float(num_stories))
