@@ -118,7 +118,7 @@ def get_art_abs(story_file):
   lines = read_text_file(story_file)
 
   # Lowercase everything
-  lines = [line.lower() for line in lines]
+  # lines = [line.lower() for line in lines]
 
   # Put periods on the ends of lines that are missing them (this is a problem in the dataset because many image captions don't end in periods; consequently they end up in the body of the article as run-on sentences)
   lines = [fix_missing_period(line) for line in lines]
