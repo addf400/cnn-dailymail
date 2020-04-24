@@ -184,18 +184,7 @@ def write_to_bin(url_file, out_file, makevocab=False):
           "tgt": abstract, 
         }, indent=None, 
       ))
-      writer.write(struct.pack('%ds' % str_len, tf_example_str))
-
-      # Write the vocab to file, if applicable
-      if makevocab:
-        art_tokens = article.split(' ')
-        abs_tokens = abstract.split(' ')
-        abs_tokens = [t for t in abs_tokens if t not in [SENTENCE_START, SENTENCE_END]] # remove these tags from vocab
-        tokens = art_tokens + abs_tokens
-        tokens = [t.strip() for t in tokens] # strip
-        tokens = [t for t in tokens if t!=""] # remove empty
-        vocab_counter.update(tokens)
-
+      writer.write('\n')
   print "Finished writing file %s\n" % out_file
 
 
@@ -226,9 +215,9 @@ if __name__ == '__main__':
   tokenize_stories(dm_stories_dir, dm_tokenized_stories_dir)
 
   # Read the tokenized stories, do a little postprocessing then write to bin files
-  write_to_bin(all_test_urls, os.path.join(finished_files_dir, "test.bin"))
-  write_to_bin(all_val_urls, os.path.join(finished_files_dir, "val.bin"))
-  write_to_bin(all_train_urls, os.path.join(finished_files_dir, "train.bin"), makevocab=True)
+  write_to_bin(all_test_urls, os.path.join(finished_files_dir, "test.jsonl"))
+  write_to_bin(all_val_urls, os.path.join(finished_files_dir, "val.jsonl"))
+  write_to_bin(all_train_urls, os.path.join(finished_files_dir, "train.jsonl"), makevocab=True)
 
   # Chunk the data. This splits each of train.bin, val.bin and test.bin into smaller chunks, each containing e.g. 1000 examples, and saves them in finished_files/chunks
   chunk_all()
